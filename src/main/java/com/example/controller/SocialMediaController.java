@@ -8,5 +8,5 @@ package com.example.controller;
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
 public class SocialMediaController {
-
+    // We'll need to use Responsebody and PathVariable to get and send information within our APIs URI
 }
