@@ -20,7 +20,7 @@ public class Account {
      */
     @Column(name="accountId")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO) // Looks like the functionality to get a unique pk automatically has already been set. Thanks Revature :)
     private Integer accountId;
     /**
      * A username for this Account (must be unique and not blank)

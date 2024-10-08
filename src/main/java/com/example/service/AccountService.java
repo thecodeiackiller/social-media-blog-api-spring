@@ -22,12 +22,23 @@ public class AccountService {
 
     // This is going to contain a response body of a JSON account, so I'm unsure whether or not we handle this with ResponseBody in Controller or what
     // We need to return an account which will be apart of the ResponseBody in the controller
+    // We have already covered the minimum password length using jakarta in the model annotation.
+    // We have already covered the username cannot be blank using jakarta annotation in the model
 
+    // We still probably need to cover that the username doesn't exist here:
+    public Account registerUser(Account account)
+    {
+        if(accountRepository.existsByUsername(account.getUsername()) == true)
+        {
+            throw new IllegalArgumentException(); // We should catch this is the Controller. Or, better yet, should we handle this using one of the @ExceptionHandler methods to handle this exception
+        }
+        else
+        {
+            return account;
+        }
+        // We could handle the response in the controller using ResponseEntity
+    }
 
-    // public Account registerUser(Account account)
-    // {
-        //  I began handcrafting a registerUser method with all the condition but thought It would be easier if we just used lombok or jakarta as this is what we have Spring for
-    // }
 
 
 }
