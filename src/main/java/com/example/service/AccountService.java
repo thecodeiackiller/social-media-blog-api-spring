@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Account;
+import com.example.exception.UnauthorizedException;
 import com.example.repository.AccountRepository;
 
 @Service
@@ -34,11 +35,23 @@ public class AccountService {
         }
         else
         {
-            return account;
+            Account newAccount = accountRepository.save(account);
+            return newAccount;
         }
         // We could handle the response in the controller using ResponseEntity
     }
 
-
-
+    public Account loginUser(Account account)
+    {
+        if((accountRepository.existsByUsername(account.getUsername())) == false || (accountRepository.existsByPassword(account.getPassword())) == false)
+        {
+            throw new UnauthorizedException("Invalid Credentials");
+        }
+        else 
+        {
+            // Right here we need to getIdByUsername and set that into a a new account variable along with the username and password and then return that account instance
+            Account returnAccount = accountRepository.findByUsername(account.getUsername());
+            return returnAccount;
+        }
+    }
 }

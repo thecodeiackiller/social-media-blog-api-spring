@@ -20,7 +20,10 @@ public class Account {
      */
     @Column(name="accountId")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // Looks like the functionality to get a unique pk automatically has already been set. Thanks Revature :)
+    @GeneratedValue(strategy = GenerationType.AUTO) 
+    // Looks like the functionality to get a unique pk automatically has already been set. Thanks Revature :) 
+    // I actually changed this to IDENTITY because the return account id was returning null
+    // It was returning null because we weren't actually saving anything to the db using the CRUDRepository save method.
     private Integer accountId;
     /**
      * A username for this Account (must be unique and not blank)
