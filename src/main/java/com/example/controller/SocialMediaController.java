@@ -1,9 +1,15 @@
 package com.example.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,5 +64,36 @@ public class SocialMediaController {
     {
         Message goodMessage = messageService.addMessage(message);
         return ResponseEntity.ok(goodMessage);
+    }
+
+    @GetMapping("/messages")
+    public ResponseEntity<List<Message>> getAllMessages()
+    {
+        List<Message> allMessages = messageService.findAllMessages();
+        return ResponseEntity.ok(allMessages);
+    }
+
+    @GetMapping("/messages/{messageId}")
+    public ResponseEntity<Message> getMessageById(@PathVariable Integer messageId)
+    {
+        Message message = messageService.findMessageById(messageId);
+        return ResponseEntity.ok(message);
+    }
+
+    @DeleteMapping("/messages/{messageId}")
+    public ResponseEntity<?> deleteMessageById(@PathVariable("messageId") Integer messageId)
+    { // In this case, we used what is known as a wildcard in Java generics
+        Integer inty = messageService.deleteMessageById(messageId);
+        if(inty == 1)
+        {
+            return ResponseEntity.ok(inty);
+        }
+        else
+        {
+            return ResponseEntity.ok().build();
+        }
+
+        // I ran into a good little problem here. Good lesson. In spring, database transactions that deal with modifying the original state of the table
+        // need to be annotated with the @Transactional annotation. This operation is mapped by EntityManager.
     }
 }

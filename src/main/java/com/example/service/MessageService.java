@@ -1,5 +1,9 @@
 package com.example.service;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +42,29 @@ public class MessageService {
         }
 
         // We also need to, upon ensuring postedby is true, the message is persisted to db using save
+    }
+
+    public List<Message> findAllMessages()
+    {
+        return messageRepository.findAll();
+    }
+
+    public Message findMessageById(Integer messageId)
+    {
+        return messageRepository.findBymessageId(messageId);
+    }
+
+    @Transactional
+    public Integer deleteMessageById(Integer messageId)
+    {
+        if(messageRepository.existsBymessageId(messageId))
+        {
+            messageRepository.deleteBymessageId(messageId);
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 }
