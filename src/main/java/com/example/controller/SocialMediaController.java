@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
 import com.example.entity.Message;
+import com.example.exception.ClientErrorException;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 
@@ -95,5 +97,19 @@ public class SocialMediaController {
 
         // I ran into a good little problem here. Good lesson. In spring, database transactions that deal with modifying the original state of the table
         // need to be annotated with the @Transactional annotation. This operation is mapped by EntityManager.
+    }
+
+    @PatchMapping("/messages/{messageId}")
+    public ResponseEntity<?> updateMessageById(@PathVariable("messageId") Integer messageId, @RequestBody Message message)
+    {
+            Integer returnInt = messageService.updateMessageById(messageId, message);
+            return ResponseEntity.ok(returnInt);
+    }
+
+    @GetMapping("/accounts/{accountId}/messages")
+    public ResponseEntity<List<Message>> getAllMessagesByUserAccountId(@PathVariable("accountId") Integer accountId)
+    {
+        List<Message> messageList = messageService.getListOfMessagesForIndividualUser(accountId);
+        return ResponseEntity.ok(messageList);
     }
 }

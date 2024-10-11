@@ -31,6 +31,10 @@ public class MessageService {
         if (message.getMessageText() == "") {
             throw new ClientErrorException("Message can't be blank");
         }
+        if(message.getMessageText().length() > 255)
+        {
+            throw new ClientErrorException("Message can't be over 255 characters");
+        }
         if(accountRepository.existsById(message.getPostedBy()) == true)
         {
             Message newMes = messageRepository.save(message);
@@ -67,4 +71,34 @@ public class MessageService {
             return 0;
         }
     }
+
+    @Transactional 
+    public Integer updateMessageById(Integer messageId, Message message)
+    {
+        if(message.getMessageText() == "")
+        {
+            throw new ClientErrorException("You are dead wrong for that.");
+        }
+        if (message.getMessageText().length() > 255) {
+            throw new ClientErrorException("You are dead wrong for that.");
+        }
+        if(!messageRepository.existsById(messageId))
+        {
+            throw new ClientErrorException("You are dead wrong for that.");
+        }
+        else
+        {
+            Message newMessage = messageRepository.findById(messageId).orElseThrow(() -> new ClientErrorException("Cmon son"));
+            newMessage.setMessageText(message.getMessageText());
+            return 1;
+        }
+    }
+
+    public List<Message> getListOfMessagesForIndividualUser(Integer accountId)
+    {
+        List<Message> messageList = messageRepository.findByPostedBy(accountId);
+        return messageList;
+    }
+
+
 }

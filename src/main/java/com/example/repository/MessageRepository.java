@@ -20,4 +20,6 @@ public interface MessageRepository extends JpaRepository<Message, Integer>{
     public boolean existsBymessageId(Integer messageId);
     public void deleteBymessageId(Integer messageId);
 
+    public List<Message> findByPostedBy(Integer accountId);
+
 }

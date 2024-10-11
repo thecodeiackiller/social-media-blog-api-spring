@@ -31,7 +31,7 @@ public class Message {
      */
     @Column (name="messageText")
     @NotBlank(message = "message can't be blank")
-    @Size(max = 255, message = "Message can't be above 255 characters")
+    @Size(max = 255)
     private String messageText;
     /**
      * The epoch time when this tweet was posted (number of seconds since Jan 1, 1970). Longs are large enough
