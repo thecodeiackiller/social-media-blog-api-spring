@@ -24,7 +24,7 @@ public class Message {
      * The id for the user who has posted this message. We will assume that this is provided by the front-end of this
      * application.
      */
-    @Column (name="postedBy")
+    @Column (name="postedBy") 
     private Integer postedBy;
     /**
      * The text for this message- eg "this is my first post!". Must be not blank and under 255 characters
