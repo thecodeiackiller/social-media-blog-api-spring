@@ -41,5 +41,5 @@ The project utilizes the Spring Boot Framework. It includes a bean for the `Acco
 9. **Spring Framework Utilization**: The project utilizes the Spring framework, including dependency injection and Spring annotations, enhancing code organization and functionality.
 
 ## Description
-This repository contains the Spring Social Media Blog API, developed during an 11-week Java training course with Revature. It demonstrates backend concepts, utilizing Spring and its dependencies, including RESTful API design and data persistence. The project features user registration, login, and message handling, structured within a 3-layer architecture for scalability and maintainability.
+This repository contains the Spring Social Media Blog API, developed during an 11-week Java training course. It demonstrates backend concepts, utilizing Spring and its dependencies, including RESTful API design and data persistence. The project features user registration, login, and message handling, structured within a 3-layer architecture for scalability and maintainability.
 
